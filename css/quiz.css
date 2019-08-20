@@ -55,6 +55,7 @@ main{
 
 #answers > .correct{
     animation: correctAnswer 1s linear;
+    background-color: #00c851;
     /*border: .1rem solid #00C851;*/
 }
 
@@ -73,11 +74,22 @@ main{
 }
 
 #answers > .incorrect{
-    border: .1rem solid #ff4444;
+    animation: falseAnswer 1s linear;
+    border: none;
+    background-color: #ff4444;
+}
+
+@keyframes falseAnswer {
+    from{
+        background-color: #333;
+    } 
+    to {
+        background-color: #ff4444;
+    }
 }
 
 #answers > .incorrect:hover{
     cursor: default;
-    border: .1rem solid #ff4444;
+    border: none;
 }
 
