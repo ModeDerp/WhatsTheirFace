@@ -82,10 +82,12 @@ function addAnswerListeners(answers){
             if(found.name == guess.name){
                 if(remainingGuesses.length > 0){
                     guess.node.classList.add('correct')
-                    setTimeout(() => {newGuess()}, 2000)
+                    setTimeout(() => {newGuess()}, 1000)
                 } else {
                     location.reload();
                 }
+            } else {
+                found.node.classList.add('incorrect')
             }
         })
     })
