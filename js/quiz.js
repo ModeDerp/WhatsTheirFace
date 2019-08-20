@@ -77,7 +77,8 @@ function addAnswerListeners(answers){
     answerNodes.forEach((node) => {
         node.addEventListener('click', (e) => {
             let found = answers.find((element) => {
-                return element.node == e.path[0];
+                var path = event.path || (event.composedPath && event.composedPath());
+                return element.node == path[0];
             })
             if(found.name == guess.name){
                 if(remainingGuesses.length > 0){
