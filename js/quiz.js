@@ -83,7 +83,7 @@ function addAnswerListeners(answers){
             if(found.name == guess.name){
                 if(remainingGuesses.length > 0){
                     guess.node.classList.add('correct')
-                    setTimeout(() => {newGuess()}, 1000)
+                    setTimeout(() => {newGuess()}, 500)
                 } else {
                     location.reload();
                 }

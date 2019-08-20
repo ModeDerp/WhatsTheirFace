@@ -54,7 +54,7 @@ main{
 }
 
 #answers > .correct{
-    animation: correctAnswer 1s linear;
+    animation: correctAnswer .5s linear;
     background-color: #00c851;
     /*border: .1rem solid #00C851;*/
 }
@@ -74,7 +74,7 @@ main{
 }
 
 #answers > .incorrect{
-    animation: falseAnswer 1s linear;
+    animation: falseAnswer .5s linear;
     border: none;
     background-color: #ff4444;
 }
