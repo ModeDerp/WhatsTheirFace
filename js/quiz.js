@@ -50,8 +50,8 @@ function newGuess(){
 
     //Randomize available answers
     let answers = [];
-    let availableGuesses = []
-    Object.assign(availableGuesses, remainingGuesses)
+    let availableGuesses = [];
+    Object.assign(availableGuesses, remainingGuesses);
     i = 0
     while(i < 6 && i < availableGuesses.length){
         guessIndex = Math.floor(Math.random()*availableGuesses.length);
@@ -60,16 +60,37 @@ function newGuess(){
         i++
     }
     answers.push(guess);
-    answers = shuffle(answers)
+    answers = shuffle(answers);
 
-    qS('#answers').innerHTML = ''
-    answers.forEach( (answer) => {
+    //Update visual answers
+    qS('#answers').innerHTML = '';
+    answers.forEach( (answer,index) => {
         qS('#answers').insertAdjacentHTML('beforeend',
-        `<div>
-            <p>${answer.name}</p>
-        </div>`)
+        `<div>${answer.name}</div>`);
+        answers[index].node = qS('#answers > div:last-child');
     })
-    console.log(answers);
+    addAnswerListeners(answers);
+}
+
+function addAnswerListeners(answers){
+    answerNodes = qSA('#answers > div');
+    answerNodes.forEach((node) => {
+        node.addEventListener('click', (e) => {
+            let found = answers.find((element) => {
+                return element.node == e.path[0];
+            })
+            if(found.name == guess.name){
+                if(remainingGuesses.length > 0){
+                    guess.node.classList.add('correct')
+                    setTimeout(() => {newGuess()}, 1000)
+                } else {
+                    location.reload();
+                }
+            } else {
+                found.node.classList.add('incorrect')
+            }
+        })
+    })
 }
 
 var storageRef = storage.ref("googleicon.jpg");
