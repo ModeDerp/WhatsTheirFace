@@ -50,15 +50,19 @@ function newGuess(){
 
     //Randomize available answers
     let answers = [];
-    let availableGuesses = remainingGuesses;
-    for(i=0;i<6;i++){
+    let availableGuesses = []
+    Object.assign(availableGuesses, remainingGuesses)
+    i = 0
+    while(i < 6 && i < availableGuesses.length){
         guessIndex = Math.floor(Math.random()*availableGuesses.length);
         answers.push(availableGuesses[guessIndex]);
         availableGuesses.splice(guessIndex, 1);
+        i++
     }
     answers.push(guess);
     answers = shuffle(answers)
 
+    qS('#answers').innerHTML = ''
     answers.forEach( (answer) => {
         qS('#answers').insertAdjacentHTML('beforeend',
         `<div>
