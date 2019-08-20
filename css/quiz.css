@@ -32,7 +32,7 @@ main{
 
 #answers > div{
     width: 100%;
-    height: 30px;
+    height: 60px;
     padding: 10px;
     background-color: #333;
     border-radius: 10px;
@@ -40,9 +40,33 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 
 #answers > div > p{
     font-size: 1.25em;
+}
+
+#answers > div:hover{
+    cursor: pointer;
+    border: .1rem solid lightgray;
+}
+
+#answers > .correct{
+    border: .1rem solid #00C851;
+}
+
+#answers > .correct:hover{
+    cursor: default;
+    border: .1rem solid #00C851;
+}
+
+#answers > .incorrect{
+    border: .1rem solid #ff4444;
+}
+
+#answers > .incorrect:hover{
+    cursor: default;
+    border: .1rem solid #ff4444;
 }
 
