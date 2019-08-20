@@ -54,7 +54,18 @@ main{
 }
 
 #answers > .correct{
+    animation: correctAnswer 1s linear 2;
     border: .1rem solid #00C851;
+}
+
+@keyframes correctAnswer {
+    from {
+        background-color: #333
+    }
+
+    to {
+        background-color: #00C851;
+    }
 }
 
 #answers > .correct:hover{
