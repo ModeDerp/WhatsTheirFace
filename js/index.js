@@ -33,7 +33,7 @@ function appendCards(){
             qS('#cards').insertAdjacentHTML('beforeend',
             `<div>
                 <img src="${url}">
-                <p>${student.name}</p>
+                <p>${student.name + " " + student.group}</p>
                 <div>${student.hobby}</div>
             </div>`);
         });
