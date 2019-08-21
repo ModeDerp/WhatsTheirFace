@@ -34,6 +34,7 @@ function appendCards(){
             `<div>
                 <img src="${url}">
                 <p>${student.name}</p>
+                <div>${student.hobby}</div>
             </div>`);
         });
     });
