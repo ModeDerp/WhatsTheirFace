@@ -75,10 +75,10 @@ function newGuess(){
 function addAnswerListeners(answers){
     answerNodes = qSA('#answers > div');
     answerNodes.forEach((node) => {
-        node.addEventListener('click', (e) => {
+        node.addEventListener('click', () => {
+            console.log(event.target)
             let found = answers.find((element) => {
-                var path = event.path || (event.composedPath && event.composedPath());
-                return element.node == path[0];
+                return element.node == event.target;
             })
             if(found.name == guess.name){
                 if(remainingGuesses.length > 0){
