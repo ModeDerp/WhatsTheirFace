@@ -22,7 +22,7 @@ const storage = firebase.storage();
 
 firebase.auth().signInAnonymously().catch(error => console.error(error));
 
-let students = [], remainingGuesses = [], guess = {}
+let students = [], remainingGuesses = [], guess = {}, scoreCount = 0, firstGuess = true
 
 //Gather all students from firebase
 database.collection('students').get().then((snap) => {
@@ -52,7 +52,7 @@ function newGuess(){
     let availableGuesses = [];
     Object.assign(availableGuesses, remainingGuesses);
     i = 0
-    while(i < 6 && i < availableGuesses.length){
+    while(i < 6 && i < remainingGuesses.length){
         guessIndex = Math.floor(Math.random()*availableGuesses.length);
         answers.push(availableGuesses[guessIndex]);
         availableGuesses.splice(guessIndex, 1);
@@ -62,15 +62,13 @@ function newGuess(){
     answers = shuffle(answers);
 
     //Update visual answers
-    setTimeout(() => {
-        qS('#answers').innerHTML = '';
-        answers.forEach( (answer,index) => {
-            qS('#answers').insertAdjacentHTML('beforeend',
-            `<div>${answer.name}</div>`);
-            answers[index].node = qS('#answers > div:last-child');
-        })
-        addAnswerListeners(answers);
-    }, 750)
+    qS('#answers').innerHTML = '';
+    answers.forEach( (answer,index) => {
+        qS('#answers').insertAdjacentHTML('beforeend',
+        `<div>${answer.name}</div>`);
+        answers[index].node = qS('#answers > div:last-child');
+    })
+    addAnswerListeners(answers);
 }
 
 function addAnswerListeners(answers){
@@ -80,16 +78,24 @@ function addAnswerListeners(answers){
             let found = answers.find((element) => {
                 return element.node == event.target;
             })
+
             if(found.name == guess.name){
+                if (firstGuess == true){
+                    scoreCount += 1
+                }
+                firstGuess = true;
                 if(remainingGuesses.length > 0){
                     guess.node.classList.add('correct')
                     setTimeout(() => {newGuess()}, 1000)
                 } else {
                     location.reload();
                 }
-            } else {
+            } else { 
                 found.node.classList.add('incorrect')
+                scoreCount -= 5
+                firstGuess = false
             }
+            console.log(scoreCount);
         })
     })
 }
