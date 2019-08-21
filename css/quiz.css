@@ -27,9 +27,6 @@ main{
 
 #answers{
     width: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 #answers > div{
@@ -42,6 +39,7 @@ main{
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    margin-bottom: 13px;
 }
 
 #answers > div{
@@ -56,7 +54,6 @@ main{
 #answers > .correct{
     animation: correctAnswer .5s linear;
     background-color: #00c851;
-    /*border: .1rem solid #00C851;*/
 }
 
 @keyframes correctAnswer {
