@@ -6,7 +6,11 @@
 
 body{
     background-color: #222;
+}
+
+main{
     padding: 50px;
+    margin-top: 50px;
 }
 
 h1,h2,h3,h4,h5,h5,p,span,a{
@@ -16,6 +20,8 @@ h1,h2,h3,h4,h5,h5,p,span,a{
 #cards{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 #cards > div{
@@ -33,4 +39,26 @@ h1,h2,h3,h4,h5,h5,p,span,a{
 
 #cards > div > p{
     padding: 20px;
+}
+
+.topnav{
+    height: 60px;
+    background-color: #333;
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.topnav div{
+    height: 60px;
+    padding: 0 15px 0 15px;
+}
+
+.topnav a{
+    height: 60px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 1.25em;
+    text-decoration: none;
 }
