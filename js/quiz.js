@@ -62,13 +62,15 @@ function newGuess(){
     answers = shuffle(answers);
 
     //Update visual answers
-    qS('#answers').innerHTML = '';
-    answers.forEach( (answer,index) => {
-        qS('#answers').insertAdjacentHTML('beforeend',
-        `<div>${answer.name}</div>`);
-        answers[index].node = qS('#answers > div:last-child');
-    })
-    addAnswerListeners(answers);
+    setTimeout(() => {
+        qS('#answers').innerHTML = '';
+        answers.forEach( (answer,index) => {
+            qS('#answers').insertAdjacentHTML('beforeend',
+            `<div>${answer.name}</div>`);
+            answers[index].node = qS('#answers > div:last-child');
+        })
+        addAnswerListeners(answers);
+    }, 750)
 }
 
 function addAnswerListeners(answers){
