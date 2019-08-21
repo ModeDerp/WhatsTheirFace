@@ -34,7 +34,6 @@ database.collection('students').get().then((snap) => {
     newGuess();
 })
 
-//
 function newGuess(){
     //Randomize next guess
     let guessIndex = Math.floor(Math.random() * remainingGuesses.length);
@@ -76,14 +75,13 @@ function addAnswerListeners(answers){
     answerNodes = qSA('#answers > div');
     answerNodes.forEach((node) => {
         node.addEventListener('click', () => {
-            console.log(event.target)
             let found = answers.find((element) => {
                 return element.node == event.target;
             })
             if(found.name == guess.name){
                 if(remainingGuesses.length > 0){
                     guess.node.classList.add('correct')
-                    setTimeout(() => {newGuess()}, 500)
+                    setTimeout(() => {newGuess()}, 1000)
                 } else {
                     location.reload();
                 }
