@@ -25,14 +25,6 @@ database.collection('students').get().then((snap) => {
     appendCards();
 });
 
-function getURL(img){
-    var storageRef = storage.ref('img/' + img + '.jpg');
-
-    storageRef.getDownloadURL().then( (url) => {
-        return url;
-    });
-}
-
 function appendCards(){
     students.forEach( (student) => {
         var storageRef = storage.ref('img/' + student.img + '.jpg');
