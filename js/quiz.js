@@ -144,6 +144,8 @@ function addAnswerListeners(answers){
                 return
             }
             found.guessed = true
+
+            //If the answer is correct
             if(found.name == guess.name){
                 loading = true
                 if (firstGuess == true){
