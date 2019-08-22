@@ -82,3 +82,12 @@ main{
     cursor: default;
     border: none;
 }
+
+#hobby {
+    height: 200px;
+    width: 500px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}

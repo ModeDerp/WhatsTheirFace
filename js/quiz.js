@@ -44,7 +44,8 @@ function newGuess(){
     console.log(guess);
     remainingGuesses.splice(guessIndex, 1);
 
-    //Update shown image
+    //Update shown info
+    qS('#hobby').innerHTML = '<p>' + guess.hobby + '</p>'
     let guessRef = storage.ref('img/' + guess.img + '.jpg');
     guessRef.getDownloadURL().then( (url) => {
         qS('section#image > img').src = url;
