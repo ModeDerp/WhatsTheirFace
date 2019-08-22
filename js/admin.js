@@ -29,8 +29,8 @@ function uploadFile(event) {
     var ref = storage.ref('img/' + fileName + '.jpg');
     var file = qS('#imgUpload').files[0];
     ref.put(file).then(() => {
-        console.log('Uploaded image!');
-        database.collection('students').doc().set({
+        alert('Student succesfully added')
+        database.collection('students').doc(name + time).set({
             name: name,
             img: fileName,
             group: group.toUpperCase(),
