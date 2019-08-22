@@ -19,7 +19,7 @@ function updateImg(){
     output.src = URL.createObjectURL(qS('#imgUpload').files[0]);
 }
 
-function uploadFile(event) {
+function uploadFile() {
     //Get unique timeId
     let time = getDate();
 
