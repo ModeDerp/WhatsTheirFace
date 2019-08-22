@@ -19,6 +19,15 @@ function updateImg(){
     output.src = URL.createObjectURL(qS('#imgUpload').files[0]);
 }
 
+//Resets all fields in the form
+function resetForm(){
+    qS('input#studentname').value = "";
+    qS('input#studentgroup').value = "";
+    qS('textarea#studenthobby').value = "";
+    qS('#imgUpload').value = "";
+    qS('#previewImg').src = "../images/placeholder-images-image_large.png";
+}
+
 function uploadFile() {
     //Get unique timeId
     let time = getDate();
@@ -58,12 +67,13 @@ function uploadFile() {
         }
         //Create references to group document and image in storage
         groupRef = database.collection('groups').doc(groupPath)
+        let fileName = group.toUpperCase() + name.toLowerCase() + time
         var ref = storage.ref('img/' + fileName + '.jpg');
         
         //Upload img to storage
         ref.put(file).then(() => {
+            resetForm();
             alert('Student succesfully added')
-            let fileName = group.toUpperCase() + name.toLowerCase() + time
             database.collection('students').doc(name + time).set({
                 name: name,
                 img: fileName,
