@@ -23,8 +23,11 @@
             </div>
         </nav>
         <main>
-            <input type="file" id="imgUpload" onChange="loadFile(event)">
+            <input type="file" id="imgUpload" onChange="uploadFile(event)">
+            <input type="text" placeholder="First/Lastname">
+            <input type="text" placeholder="Group/Class">
             <img id="previewImg">
+            <button onclick="uploadFile(event)">Lorem Ipsum</button>
         </main>
     </body>
     <script>
