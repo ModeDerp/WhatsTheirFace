@@ -82,6 +82,7 @@ function addAnswerListeners(answers){
             let found = answers.find((element) => {
                 return element.node == event.target;
             })
+            found.guessed = true
             if(found.guessed == true){
                 return
             }
@@ -99,7 +100,6 @@ function addAnswerListeners(answers){
                 }
             } else { 
                 found.node.classList.add('incorrect')
-                found.guessed = true
                 scoreCount -= 5
                 firstGuess = false
                 qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
