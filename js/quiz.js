@@ -22,8 +22,9 @@ const storage = firebase.storage();
 
 firebase.auth().signInAnonymously().catch(error => console.error(error));
 
-let remainingGuesses = [], guess = {}, scoreCount = 0, firstGuess = true, groups = []
-
+let remainingGuesses = [], guess = {}, scoreCount = 0, firstGuess = true, groups = [], selectedGroupRef, firstTry = 0, incorrectGuesses = 0, loading = false
+qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
+qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
 qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
 startWithAllStudents()
 
@@ -39,7 +40,7 @@ function startWithAllStudents(){
     })
 }
 
-function startWithGroup(selectedGroupRef) {
+function startWithGroup() {
     remainingGuesses = []
     //Gather all students from firebase
     database.collection('students').where("group", "==", selectedGroupRef).get().then((snap) => {
@@ -55,9 +56,21 @@ function changeGroup() {
     let chosenGroup = qS('#groupselector').value
     if(chosenGroup == '*'){
         startWithAllStudents()
+        scoreCount = 0
+        firstTry = 0
+        incorrectGuesses = 0
+        qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
+        qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
+        qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
     } else {
-        let selectedGroupRef = database.collection('groups').doc(chosenGroup)
-        startWithGroup(selectedGroupRef)
+        selectedGroupRef = database.collection('groups').doc(chosenGroup)
+        scoreCount = 0
+        firstTry = 0
+        incorrectGuesses = 0
+        qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
+        qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
+        qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
+        startWithGroup()
     }
 }
     
@@ -111,6 +124,7 @@ function newGuess(){
             `<div>${answer.name}</div>`);
             answers[index].node = qS('#answers > div:last-child');
         })
+        loading = false
         addAnswerListeners(answers);
     })
 }
@@ -122,27 +136,39 @@ function addAnswerListeners(answers){
             let found = answers.find((element) => {
                 return element.node == event.target;
             })
-            if(found.guessed == true){
+            if(found.guessed == true || loading == true){
                 return
             }
             found.guessed = true
             if(found.name == guess.name){
+                loading = true
                 if (firstGuess == true){
                     scoreCount += 1
+                    firstTry++
+                    qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
                     qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
                 }
                 firstGuess = true;
-                if(remainingGuesses.length > 0){
-                    guess.node.classList.add('correct')
+                guess.node.classList.add('correct')
+                if(remainingGuesses.length > 0){ 
                     setTimeout(() => {newGuess()}, 1000)
                 } else {
-                    location.reload();
+                    scoreCount = 0
+                    firstTry = 0
+                    incorrectGuesses = 0
+                    qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
+                    qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
+                    qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
+                    setTimeout(() => {startWithGroup()}, 2000)
                 }
             } else { 
                 found.node.classList.add('incorrect')
                 scoreCount -= 5
                 firstGuess = false
+                incorrectGuesses++
                 qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
+                qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
+
             }
         })
     })
