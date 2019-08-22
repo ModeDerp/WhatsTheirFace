@@ -82,10 +82,10 @@ function addAnswerListeners(answers){
             let found = answers.find((element) => {
                 return element.node == event.target;
             })
-            found.guessed = true
             if(found.guessed == true){
                 return
             }
+            found.guessed = true
             if(found.name == guess.name){
                 if (firstGuess == true){
                     scoreCount += 1
