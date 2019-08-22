@@ -40,6 +40,7 @@ function newGuess(){
     //Randomize next guess
     let guessIndex = Math.floor(Math.random() * remainingGuesses.length);
     guess = remainingGuesses[guessIndex];
+    guess.guessed = false
     console.log(guess);
     remainingGuesses.splice(guessIndex, 1);
 
@@ -47,31 +48,31 @@ function newGuess(){
     let guessRef = storage.ref('img/' + guess.img + '.jpg');
     guessRef.getDownloadURL().then( (url) => {
         qS('section#image > img').src = url;
+    }).then(() => {
+        //Randomize available answers
+        let answers = [];
+        let availableGuesses = [];
+        Object.assign(availableGuesses, remainingGuesses);
+        i = 0
+        while(i < 6 && i < remainingGuesses.length){
+            guessIndex = Math.floor(Math.random()*availableGuesses.length);
+            answers.push(availableGuesses[guessIndex]);
+            answers[answers.length-1].guessed = false
+            availableGuesses.splice(guessIndex, 1);
+            i++
+        }
+        answers.push(guess);
+        answers = shuffle(answers);
+        
+        //Update visual answers
+        qS('#answers').innerHTML = '';
+        answers.forEach( (answer,index) => {
+            qS('#answers').insertAdjacentHTML('beforeend',
+            `<div>${answer.name}</div>`);
+            answers[index].node = qS('#answers > div:last-child');
+        })
+        addAnswerListeners(answers);
     })
-
-    //Randomize available answers
-    let answers = [];
-    let availableGuesses = [];
-    Object.assign(availableGuesses, remainingGuesses);
-    i = 0
-    while(i < 6 && i < remainingGuesses.length){
-        guessIndex = Math.floor(Math.random()*availableGuesses.length);
-        answers.push(availableGuesses[guessIndex]);
-        answers[answers.length-1].guessed = false
-        availableGuesses.splice(guessIndex, 1);
-        i++
-    }
-    answers.push(guess);
-    answers = shuffle(answers);
-
-    //Update visual answers
-    qS('#answers').innerHTML = '';
-    answers.forEach( (answer,index) => {
-        qS('#answers').insertAdjacentHTML('beforeend',
-        `<div>${answer.name}</div>`);
-        answers[index].node = qS('#answers > div:last-child');
-    })
-    addAnswerListeners(answers);
 }
 
 function addAnswerListeners(answers){
@@ -103,7 +104,6 @@ function addAnswerListeners(answers){
                 firstGuess = false
                 qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
             }
-            console.log(scoreCount);
         })
     })
 }
