@@ -23,12 +23,21 @@
             </div>
         </nav>
         <main>
-            <input type="file" id="imgUpload" onChange="uploadFile(event)">
-            <input type="text" id="studentname" placeholder="First/Lastname">
-            <input type="text" id="studentgroup" placeholder="Group/Class">
-            <input type="text" id="studenthobby" placeholder="Hobby">
-            <img id="previewImg">
-            <button onclick="uploadFile(event)">Lorem Ipsum</button>
+            <section class="student-form">
+                <section class="student-img">
+                    <img src="../images/placeholder-images-image_large.png" id="previewImg">
+                </section>
+                <section class="student-details">
+                    <span>First/Lastname</span>
+                    <input type="text" id="studentname" placeholder="First/Lastname">
+                    <span>Group/Class</span>
+                    <input type="text" id="studentgroup" placeholder="Group/Class">
+                    <span>Hobby</span>
+                    <textarea id="studenthobby"></textarea>
+                    <input type="file" id="imgUpload">
+                    <button onclick="uploadFile(event)">Add student</button>
+                </section>
+            </section>
         </main>
     </body>
     <script>

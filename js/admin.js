@@ -23,11 +23,11 @@ function uploadFile(event) {
 
     let name = qS('input#studentname').value
     let group = qS('input#studentgroup').value
-    let hobby = qS('input#studenthobby').value
+    let hobby = qS('textarea#studenthobby').value
     let fileName = group.toUpperCase() + name.toLowerCase() + time
 
     var ref = storage.ref('img/' + fileName + '.jpg');
-    var file = event.target.files[0];
+    var file = qS('#imgUpload').files[0];
     ref.put(file).then(() => {
         console.log('Uploaded image!');
         database.collection('students').doc().set({
