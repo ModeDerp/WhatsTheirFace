@@ -1,19 +1,6 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'Lexend Deca', sans-serif;
-    color: lightgray;
-}
-
-body{
-    background-color: #222;
-}
-
 main{
     display: flex;
     justify-content: center;
-    padding: 50px;
-    margin-top: 50px;
 }
 
 #image{
@@ -94,29 +81,3 @@ main{
     cursor: default;
     border: none;
 }
-
-.topnav{
-    height: 60px;
-    background-color: #333;
-    display: flex;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    box-shadow: #111 0 0 5px;
-}
-
-.topnav div{
-    height: 60px;
-    padding: 0 15px 0 15px;
-}
-
-.topnav a{
-    height: 60px;
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 1.25em;
-    text-decoration: none;
-} 
-
-
-    

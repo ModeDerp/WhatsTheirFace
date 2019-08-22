@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Lexend Deca', sans-serif;
+    color: lightgray;
 }
 
 body{
@@ -11,10 +12,6 @@ body{
 main{
     padding: 50px;
     margin-top: 50px;
-}
-
-h1,h2,h3,h4,h5,h5,p,span,a{
-    color: lightgray;
 }
 
 .topnav{
@@ -33,7 +30,9 @@ h1,h2,h3,h4,h5,h5,p,span,a{
     padding: 0 15px 0 15px;
 }
 
-.topnav a{
+.topnav a,
+.topnav span
+{
     height: 60px;
     display: table-cell;
     vertical-align: middle;
