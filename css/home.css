@@ -93,3 +93,19 @@ h1,h2,h3,h4,h5,h5,p,span,a{
     font-size: 1.25em;
     text-decoration: none;
 }
+
+.list-controls{
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.list-controls > select{
+    height: 40px;
+    width: 150px;
+    font-size: 1em;
+    color: gray;
+}
+
+.list-controls option{
+    color: gray;
+}

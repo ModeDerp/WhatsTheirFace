@@ -1,6 +1,24 @@
-main{
+.quiz-controls{
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.quiz-controls > select{
+    height: 40px;
+    width: 150px;
+    font-size: 1em;
+    color: gray;
+}
+
+.quiz-controls option{
+    color: gray;
+}
+
+.quiz-container{
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    width: 900px;
+    margin: auto;
 }
 
 #image{
