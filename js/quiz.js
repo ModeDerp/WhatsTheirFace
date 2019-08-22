@@ -52,8 +52,11 @@ function startWithGroup() {
     })
 }
 
+//Changes the group used in the quiz.
 function changeGroup() {
     let chosenGroup = qS('#groupselector').value
+
+    //If the group value is * all students will be used in the quiz.
     if(chosenGroup == '*'){
         startWithAllStudents()
         scoreCount = 0
@@ -129,6 +132,7 @@ function newGuess(){
     })
 }
 
+//Adds click event listeners for the answer elements
 function addAnswerListeners(answers){
     answerNodes = qSA('#answers > div');
     answerNodes.forEach((node) => {
@@ -140,6 +144,8 @@ function addAnswerListeners(answers){
                 return
             }
             found.guessed = true
+
+            //If the answer is correct
             if(found.name == guess.name){
                 loading = true
                 if (firstGuess == true){
@@ -150,9 +156,12 @@ function addAnswerListeners(answers){
                 }
                 firstGuess = true;
                 guess.node.classList.add('correct')
+
+                //If there are still students to guess on a new guess is loaded
                 if(remainingGuesses.length > 0){ 
                     setTimeout(() => {newGuess()}, 1000)
-                } else {
+                }
+                else {
                     scoreCount = 0
                     firstTry = 0
                     incorrectGuesses = 0
