@@ -24,7 +24,7 @@ firebase.auth().signInAnonymously().catch(error => console.error(error));
 
 let students = [], remainingGuesses = [], guess = {}, scoreCount = 0, firstGuess = true
 
-qS("#score").innerHTML = `<h1>Score: ${scoreCount}</h1>`
+qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
 
 //Gather all students from firebase
 database.collection('students').get().then((snap) => {
@@ -84,7 +84,7 @@ function addAnswerListeners(answers){
             if(found.name == guess.name){
                 if (firstGuess == true){
                     scoreCount += 1
-                    qS("#score").innerHTML = `<h1>Score: ${scoreCount}</h1>`
+                    qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
                 }
                 firstGuess = true;
                 if(remainingGuesses.length > 0){
@@ -97,7 +97,7 @@ function addAnswerListeners(answers){
                 found.node.classList.add('incorrect')
                 scoreCount -= 5
                 firstGuess = false
-                qS("#score").innerHTML = `<h1>Score: ${scoreCount}</h1>`
+                qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
             }
             console.log(scoreCount);
         })
