@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Lexend Deca', sans-serif;
+}
+
+body{
+    background-color: #222;
+}
+
+main{
+    padding: 50px;
+    margin-top: 50px;
+}
+
+h1,h2,h3,h4,h5,h5,p,span,a{
+    color: lightgray;
+}
+
+.topnav{
+    height: 60px;
+    background-color: #333;
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: #111 0 0 5px;
+    z-index: 10;
+}
+
+.topnav div{
+    height: 60px;
+    padding: 0 15px 0 15px;
+}
+
+.topnav a{
+    height: 60px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 1.25em;
+    text-decoration: none;
+}
