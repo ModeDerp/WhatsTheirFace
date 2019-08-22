@@ -21,13 +21,21 @@ function uploadFile(event) {
     //Get unique timeId
     let time = getDate();
 
+    let name = qS('input#studentname').value
+    let group = qS('input#studentgroup').value
+    let hobby = qS('input#studenthobby').value
+    let fileName = group.toUpperCase() + name.toLowerCase() + time
 
-
-    var ref = storage.ref('img/hej' + 'time' + '.jpg');
-
+    var ref = storage.ref('img/' + fileName + '.jpg');
     var file = event.target.files[0];
-    ref.put(file).then(function(snapshot) {
+    ref.put(file).then(() => {
         console.log('Uploaded image!');
+        database.collection('students').doc().set({
+            name: name,
+            img: fileName,
+            group: group.toUpperCase(),
+            hobby: hobby
+        })
     });
 };
 

@@ -103,9 +103,3 @@ function addAnswerListeners(answers){
         })
     })
 }
-
-var storageRef = storage.ref("googleicon.jpg");
-
-storageRef.getDownloadURL().then( (url) => {
-    console.log(url);
-});
