@@ -57,6 +57,7 @@ function newGuess(){
     while(i < 6 && i < remainingGuesses.length){
         guessIndex = Math.floor(Math.random()*availableGuesses.length);
         answers.push(availableGuesses[guessIndex]);
+        answers[answers.length-1].guessed = false
         availableGuesses.splice(guessIndex, 1);
         i++
     }
@@ -80,7 +81,9 @@ function addAnswerListeners(answers){
             let found = answers.find((element) => {
                 return element.node == event.target;
             })
-
+            if(found.guessed == true){
+                return
+            }
             if(found.name == guess.name){
                 if (firstGuess == true){
                     scoreCount += 1
@@ -95,6 +98,7 @@ function addAnswerListeners(answers){
                 }
             } else { 
                 found.node.classList.add('incorrect')
+                found.guessed = true
                 scoreCount -= 5
                 firstGuess = false
                 qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
@@ -103,9 +107,3 @@ function addAnswerListeners(answers){
         })
     })
 }
-
-var storageRef = storage.ref("googleicon.jpg");
-
-storageRef.getDownloadURL().then( (url) => {
-    console.log(url);
-});
