@@ -19,16 +19,21 @@ let students = [];
 //Gather all students from firebase
 database.collection('students').get().then((snap) => {
     snap.forEach((snap) => {
-        students.push(snap.data());
+        database.collection('groups').doc(`${snap.data().group.id}`).get().then((snapshot) =>{
+          let temp = {}
+          temp = snap.data()
+          temp['group'] = snapshot.data().group
+          students.push(temp)  
+          appendCards(temp);
+        })
     });
-}).then( () => {
-    appendCards();
-});
+    console.log(students)
+})
 
-function appendCards(){
-    students.forEach( (student) => {
+function appendCards(student){
+    qS('#cards').innerHTML = ""
+    // students.forEach( (student) => {
         var storageRef = storage.ref('img/' + student.img + '.jpg');
-
         storageRef.getDownloadURL().then( (url) => {
             qS('#cards').insertAdjacentHTML('beforeend',
             `<div>
@@ -37,6 +42,6 @@ function appendCards(){
                 <div>${student.hobby}</div>
             </div>`);
         });
-    });
+    // });
 }
 
