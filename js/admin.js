@@ -22,10 +22,8 @@ function loadFile(event) {
 
     var file = event.target.files[0];
     ref.put(file).then(function(snapshot) {
-        console.log('Uploaded a blob or file!');
+        console.log('Uploaded image!');
     });
-
-
 };
 
 
