@@ -22,18 +22,57 @@ const storage = firebase.storage();
 
 firebase.auth().signInAnonymously().catch(error => console.error(error));
 
-let students = [], remainingGuesses = [], guess = {}, scoreCount = 0, firstGuess = true
+let remainingGuesses = [], guess = {}, scoreCount = 0, firstGuess = true, groups = []
 
 qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
+startWithAllStudents()
 
-//Gather all students from firebase
-database.collection('students').get().then((snap) => {
-    snap.forEach((snap) => {
-        students.push(snap.data());
-        remainingGuesses.push(snap.data());
+function startWithAllStudents(){
+    remainingGuesses = []
+    //Gather all students from firebase
+    database.collection('students').get().then((snap) => {
+        snap.forEach((snap) => {
+            remainingGuesses.push(snap.data());
+        })
+    }).then( () => {
+        newGuess();
     })
-}).then( () => {
-    newGuess();
+}
+
+function startWithGroup(selectedGroupRef) {
+    remainingGuesses = []
+    //Gather all students from firebase
+    database.collection('students').where("group", "==", selectedGroupRef).get().then((snap) => {
+        snap.forEach((snap) => {
+            remainingGuesses.push(snap.data());
+        })
+    }).then( () => {
+        newGuess();
+    })
+}
+
+function changeGroup() {
+    let chosenGroup = qS('#groupselector').value
+    if(chosenGroup == '*'){
+        startWithAllStudents()
+    } else {
+        let selectedGroupRef = database.collection('groups').doc(chosenGroup)
+        startWithGroup(selectedGroupRef)
+    }
+}
+    
+//Gather groups from firebase
+database.collection("groups").orderBy("group", "asc").get().then((snap) => {
+    snap.forEach((snap) => {
+        let temp = snap.data()
+        temp.id = snap.id
+        groups.push(temp)
+    })
+}).then(() => {
+    groups.forEach((group) => {
+        qS('#groupselector').insertAdjacentHTML('beforeend', 
+        `<option value="${group.id}">${group.group}</option>`)
+    })
 })
 
 function newGuess(){
