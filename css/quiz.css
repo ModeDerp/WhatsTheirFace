@@ -44,8 +44,8 @@ main{
 }
 
 #answers > .correct{
-    animation: correctAnswer .5s linear;
-    background-color: #00c851;
+    animation: correctAnswer .2s linear;
+    background-color: #14993E;
 }
 
 @keyframes correctAnswer {
@@ -54,18 +54,19 @@ main{
     }
 
     to {
-        background-color: #00C851;
+        background-color: #14993E;
     }
 }
 
 #answers > .correct:hover{
     cursor: default;
+    border: none;
 }
 
 #answers > .incorrect{
     animation: falseAnswer .5s linear;
     border: none;
-    background-color: #ff4444;
+    background-color: #C24444;
 }
 
 @keyframes falseAnswer {
@@ -73,7 +74,7 @@ main{
         background-color: #333;
     } 
     to {
-        background-color: #ff4444;
+        background-color: #C24444;
     }
 }
 
