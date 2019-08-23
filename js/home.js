@@ -30,7 +30,6 @@ function getAllStudents(){
                 appendCards(temp);
             })
         });
-        console.log(students)
     })
 }
 
@@ -46,7 +45,6 @@ function getGroup(selectedGroupRef){
                 appendCards(temp);
             })
         });
-        console.log(students)
     })
 }
 

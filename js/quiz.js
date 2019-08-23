@@ -96,7 +96,6 @@ function newGuess(){
     let guessIndex = Math.floor(Math.random() * remainingGuesses.length);
     guess = remainingGuesses[guessIndex];
     guess.guessed = false
-    console.log(guess);
     remainingGuesses.splice(guessIndex, 1);
 
     //Update shown info
