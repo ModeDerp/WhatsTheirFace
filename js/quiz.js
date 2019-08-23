@@ -25,8 +25,16 @@ firebase.auth().signInAnonymously().catch(error => console.error(error));
 let remainingGuesses = [], guess = {}, scoreCount = 0, firstGuess = true, groups = [], selectedGroupRef, firstTry = 0, incorrectGuesses = 0, loading = false
 qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
 qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
-qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
+
+function updateScore(){
+    qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
+} 
+
+updateScore()
 startWithAllStudents()
+
+
+
 
 function startWithAllStudents(){
     remainingGuesses = []
@@ -96,6 +104,7 @@ function newGuess(){
     let guessIndex = Math.floor(Math.random() * remainingGuesses.length);
     guess = remainingGuesses[guessIndex];
     guess.guessed = false
+    console.log(guess);
     remainingGuesses.splice(guessIndex, 1);
 
     //Update shown info
@@ -151,7 +160,7 @@ function addAnswerListeners(answers){
                     scoreCount += 1
                     firstTry++
                     qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
-                    qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
+                    updateScore()
                 }
                 firstGuess = true;
                 guess.node.classList.add('correct')
@@ -161,20 +170,24 @@ function addAnswerListeners(answers){
                     setTimeout(() => {newGuess()}, 1000)
                 }
                 else {
-                    scoreCount = 0
-                    firstTry = 0
-                    incorrectGuesses = 0
                     qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
                     qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
-                    qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
-                    setTimeout(() => {startWithGroup()}, 2000)
+                    updateScore()
+                    setTimeout(() => {
+                        scoreCount = 0
+                        firstTry = 0
+                        incorrectGuesses = 0
+                        qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
+                        qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
+                        updateScore()
+                        startWithGroup()}, 2000)
                 }
             } else { 
                 found.node.classList.add('incorrect')
                 scoreCount -= 5
                 firstGuess = false
                 incorrectGuesses++
-                qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
+                updateScore()
                 qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
 
             }
