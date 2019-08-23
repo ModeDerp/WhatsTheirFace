@@ -22,7 +22,7 @@ const storage = firebase.storage();
 
 firebase.auth().signInAnonymously().catch(error => console.error(error));
 
-let remainingGuesses = [], guess = {}, scoreCount = 0, firstGuess = true, groups = [], selectedGroupRef, firstTry = 0, incorrectGuesses = 0, loading = false
+let remainingGuesses = [], guess = {}, scoreCount = 0, firstGuess = true, groups = [], selectedGroupRef = "*", firstTry = 0, incorrectGuesses = 0, loading = false
 qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
 qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
 
@@ -72,7 +72,7 @@ function changeGroup() {
         incorrectGuesses = 0
         qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
         qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
-        qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
+        updateScore()
     } else {
         selectedGroupRef = database.collection('groups').doc(chosenGroup)
         scoreCount = 0
@@ -80,7 +80,7 @@ function changeGroup() {
         incorrectGuesses = 0
         qS("#corGuess").innerHTML = `<span>First Try: ${firstTry}</span>`
         qS("#incorGuess").innerHTML = `<span>Incorrect Guesses: ${incorrectGuesses}</span>`
-        qS("#score").innerHTML = `<span>Score: ${scoreCount}</span>`
+        updateScore()
         startWithGroup()
     }
 }
